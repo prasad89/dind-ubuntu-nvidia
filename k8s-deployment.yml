@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dind-ubuntu-nvidia
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dind-ubuntu-nvidia
+  template:
+    metadata:
+      labels:
+        app: dind-ubuntu-nvidia
+    spec:
+      containers:
+        - name: dind-ubuntu-nvidia
+          image: ghcr.io/prasad89/dind-ubuntu-nvidia
+          stdin: true
+          securityContext:
+            privileged: true
+          resources:
+            requests:
+              memory: 100Mi
+              cpu: 100m
+            limits:
+              nvidia.com/gpu: 1
+          volumeMounts:
+            - name: docker
+              mountPath: /var/lib/docker
+      volumes:
+        - name: docker
+          emptyDir: {}

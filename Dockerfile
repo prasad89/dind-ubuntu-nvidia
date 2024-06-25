@@ -2,10 +2,11 @@
 FROM ubuntu:24.04
 
 # Install necessary packages
-RUN apt-get update && apt-get install -y \
+RUN apt-get update \
+	&& apt-get install -y --no-install-recommends \
 	ca-certificates \
 	curl \
-	gpg \
+	gnupg \
 	iptables \
 	supervisor
 
@@ -20,6 +21,7 @@ RUN curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | gpg --dearm
 	&& apt-get update \
 	&& apt-get install -y nvidia-container-toolkit \
 	&& nvidia-ctk runtime configure --runtime=docker \
+	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Copy entrypoint script and Supervisor configuration files into the container

@@ -1,10 +1,10 @@
 # Ubuntu-based Docker-in-Docker (DinD) Environment with NVIDIA Container Runtime Support
 
 ## Overview
-This repository offers an Ubuntu-based Docker-in-Docker (DinD) environment tailored for containerized development, enriched with NVIDIA container runtime support. The base image is crafted on Ubuntu 24.04.
+This repository offers an Ubuntu-based Docker-in-Docker (DinD) environment tailored for containerized development, enriched with NVIDIA container runtime support. The base image is crafted on Ubuntu 24.10.
 
 ## Features
-- **Ubuntu 24.04**: Built on the latest stable Ubuntu LTS platform for reliability and long-term support.
+- **Ubuntu 24.10**: Built on the latest stable Ubuntu LTS platform for reliability and long-term support.
 - **Docker-in-Docker (DinD)**: Enables nested Docker containerization, ideal for CI/CD pipelines and advanced development workflows.
 - **NVIDIA Container Runtime**: Facilitates execution of GPU-accelerated applications leveraging NVIDIA GPUs for enhanced performance.
 
@@ -50,6 +50,10 @@ This repository includes a Makefile to simplify building, running, pulling, and 
 ```sh
 make build
 ```
+
+By default, this `make` command builds a multiple architecture image using `buildx`. Make sure you have a compatible `buildx` driver installed to run this.
+
+Optionally, if you don't want to build for multiple architectures, you can simply run: `docker build -f Dockerfile -t REGISTRY_PREFIX/IMAGE_NAME:TAG .`
 
 #### Run the Container in Standard Mode (without GPU)
 ```sh
@@ -99,3 +103,4 @@ If you need to customize the image name, tag, or registry prefix, you can modify
 - **TAG**: The tag for the Docker image (default: `latest`).
 - **REGISTRY_PREFIX**: The registry prefix where the image is stored (default: `ghcr.io/prasad89`).
 - **GPU_COUNT**: The number of GPUs to use (default: `all`). Adjust this as needed for your specific setup.
+- **PLATFORM**: The platforms for which the Docker image is built (default: `linux/amd64,linux/arm64`).

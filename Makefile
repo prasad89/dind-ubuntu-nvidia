@@ -1,6 +1,6 @@
 IMAGE_NAME = dind-ubuntu-nvidia
 TAG ?= latest
-REGISTRY_PREFIX ?= ghcr.io/prasad89
+REGISTRY_PREFIX ?= docker.io/prasadb89
 PLATFORM ?= linux/amd64,linux/arm64
 
 GPU_COUNT ?= all
@@ -11,7 +11,7 @@ build:
 	@echo "Tag: ${TAG}"
 	@echo "Registry Prefix: ${REGISTRY_PREFIX}"
 	@echo "Platform: ${PLATFORM}"
-	@docker buildx build -f Dockerfile -t ${REGISTRY_PREFIX}/${IMAGE_NAME}:${TAG} --platform ${PLATFORM} . 
+	@docker buildx build --push -f Dockerfile -t ${REGISTRY_PREFIX}/${IMAGE_NAME}:${TAG} --platform ${PLATFORM} . 
 
 run_standard:
 	@echo "Running standard Docker container..."

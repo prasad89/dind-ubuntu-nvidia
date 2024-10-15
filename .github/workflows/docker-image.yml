@@ -37,7 +37,7 @@ jobs:
         with:
           version: "lab:latest"
           driver: cloud
-          endpoint: "${{ vars.DOCKER_USER }}/cloud-builder"
+          endpoint: "${{ vars.DOCKER_ORG }}/cloud-builder"
           install: true
 
       - name: Build and push Docker image
